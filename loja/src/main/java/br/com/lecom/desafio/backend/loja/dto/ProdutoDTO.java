@@ -2,6 +2,9 @@ package br.com.lecom.desafio.backend.loja.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Table;
+
+@Table(name = "produto")
 public class ProdutoDTO {
 
 	private Long id;

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TransportadoraApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("spring.cloud.bootstrap.enabled","true");
 		SpringApplication.run(TransportadoraApplication.class, args);
 	}
 

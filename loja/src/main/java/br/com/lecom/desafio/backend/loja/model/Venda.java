@@ -1,11 +1,10 @@
 package br.com.lecom.desafio.backend.loja.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,8 +22,11 @@ public class Venda {
 	@JoinColumn(name = "vendaId")
 	private List<VendaItem> itens;
 	
-	@Enumerated(EnumType.STRING)
-	private VendaStatus status;
+	private String destino;
+	
+	private String status;
+	
+	private BigDecimal precoTotal;
 
 	public Long getId() {
 		return id;
@@ -42,12 +44,28 @@ public class Venda {
 		this.itens = itens;
 	}
 
-	public VendaStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(VendaStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public BigDecimal getPrecoTotal() {
+		return precoTotal;
+	}
+
+	public void setPrecoTotal(BigDecimal precoTotal) {
+		this.precoTotal = precoTotal;
 	}
 
 }

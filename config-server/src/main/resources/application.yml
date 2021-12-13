@@ -3,4 +3,4 @@ server:
   
 spring:
   cloud:    config:      server:        git:
-          uri: https://github.com/JeanBeltrame/microservice-repo          search-paths: loja, fornecedor#        git:#          uri: https://github.com/JeanBeltrame/desafio-loja-lecom
+          uri: https://github.com/JeanBeltrame/microservice-repo          search-paths: loja, fornecedor, transportadora#        git:#          uri: https://github.com/JeanBeltrame/desafio-loja-lecom

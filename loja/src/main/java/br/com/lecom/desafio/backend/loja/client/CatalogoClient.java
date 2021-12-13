@@ -19,4 +19,7 @@ public interface CatalogoClient {
 	@RequestMapping("/produto/consultar/{id}")
 	ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id);
 
+	@RequestMapping(value = "produto/consultar", method = RequestMethod.POST)
+	List<ProdutoDTO> getVariosProdutosPorId(List<Long> idsProdutos);
+
 }

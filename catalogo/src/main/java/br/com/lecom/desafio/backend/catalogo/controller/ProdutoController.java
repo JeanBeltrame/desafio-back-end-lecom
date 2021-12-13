@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.lecom.desafio.backend.catalogo.dto.ProdutoDTO;
 import br.com.lecom.desafio.backend.catalogo.model.Produto;
 import br.com.lecom.desafio.backend.catalogo.service.ProdutoService;
 
@@ -29,4 +31,8 @@ public class ProdutoController {
 		return produtoService.getProdutoPorId(id);
 	}
 	
+	@RequestMapping(value = "/consultar", method = RequestMethod.POST)
+	public List<ProdutoDTO> getVariosProdutosPorId(@RequestBody List<Long> ids) {
+		return produtoService.getVariosProdutosPorId(ids);
+	}
 }

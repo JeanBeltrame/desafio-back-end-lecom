@@ -13,5 +13,6 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 	
 	Optional<Produto> findById(Long id);
 	
-//	List<Produto> findByIdIn(List<Long> ids);
+	List<Produto> findByIdIn(List<Long> ids);
+	
 }
