@@ -13,21 +13,37 @@ public class EntrgaService {
 
 	@Autowired
 	EntregaRepository entregaRepository;
-	
-	public Entrega registrarEntrega(EntregaDTO entregaDTO) {
+
+	public EntregaDTO registrarEntrega(EntregaDTO entregaDTO) {
 		Entrega entrega = toEntrega(entregaDTO);
+		
 		entrega.setStatus(VendaStatus.EM_PREPARO);
 		entrega.setCepRemetente("17033570");
-		
-		return entregaRepository.save(entrega);
+
+		entregaRepository.save(entrega);
+
+		toEntregaDTO(entrega);
+
+		return toEntregaDTO(entrega);
 	}
-	
+
+	private EntregaDTO toEntregaDTO(Entrega entrega) {
+		EntregaDTO entregaDTO = new EntregaDTO(
+				entrega.getId(),
+				entrega.getVendaId(),
+				entrega.getCepRemetente(),
+				entrega.getCepDestinatario(),
+				entrega.getStatus().name());
+		return entregaDTO;
+	}
+
 	private Entrega toEntrega(EntregaDTO entregaDTO) {
 		Entrega entrega = new Entrega();
-		
+
 		entrega.setId(entregaDTO.getId());
 		entrega.setVendaId(entregaDTO.getVendaId());
-		
+		entrega.setCepDestinatario(entregaDTO.getCepDestinatario());
+
 		return entrega;
 	}
 

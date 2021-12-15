@@ -16,10 +16,13 @@ public interface CatalogoClient {
 	@RequestMapping(value = "/produto/consultar", method = RequestMethod.GET)
 	List<ProdutoDTO> getTodosProdutos();
 
-	@RequestMapping("/produto/consultar/{id}")
+	@RequestMapping(value = "/produto/consultar/{id}", method = RequestMethod.GET)
 	ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id);
 
 	@RequestMapping(value = "produto/consultar", method = RequestMethod.POST)
 	List<ProdutoDTO> getVariosProdutosPorId(List<Long> idsProdutos);
+
+	@RequestMapping(value = "/produto/consultar/nome/{nome}", method = RequestMethod.GET)
+	List<ProdutoDTO> getProdutoPorNome(@PathVariable String nome);
 
 }

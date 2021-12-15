@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lecom.desafio.backend.transportadora.dto.EntregaDTO;
-import br.com.lecom.desafio.backend.transportadora.model.Entrega;
 import br.com.lecom.desafio.backend.transportadora.service.EntrgaService;
 
 @RestController
@@ -18,7 +17,7 @@ public class EntregaController {
 	private EntrgaService entregaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Entrega registrarEntrega(@RequestBody EntregaDTO entrega) {
+	public EntregaDTO registrarEntrega(@RequestBody EntregaDTO entrega) {
 		return entregaService.registrarEntrega(entrega);
 	}
 

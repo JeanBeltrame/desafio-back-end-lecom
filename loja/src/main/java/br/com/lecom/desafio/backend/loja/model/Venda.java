@@ -22,11 +22,23 @@ public class Venda {
 	@JoinColumn(name = "vendaId")
 	private List<VendaItem> itens;
 	
-	private String destino;
-	
-	private String status;
+	private String cepDestinatario;
 	
 	private BigDecimal precoTotal;
+
+	
+	public Venda() {
+
+	}
+
+	public Venda(Long id, List<VendaItem> itens, String cepDestinatario, BigDecimal precoTotal) {
+		this.id = id;
+		this.itens = itens;
+		this.cepDestinatario = cepDestinatario;
+		this.precoTotal = precoTotal;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -44,20 +56,12 @@ public class Venda {
 		this.itens = itens;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getCepDestinatario() {
+		return cepDestinatario;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getDestino() {
-		return destino;
-	}
-
-	public void setDestino(String destino) {
-		this.destino = destino;
+	public void setCepDestinatario(String cepDestinatario) {
+		this.cepDestinatario = cepDestinatario;
 	}
 
 	public BigDecimal getPrecoTotal() {

@@ -15,4 +15,6 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long> {
 	
 	List<Produto> findByIdIn(List<Long> ids);
 	
+	List<Produto> findByNomeContains(String nome);
+	
 }

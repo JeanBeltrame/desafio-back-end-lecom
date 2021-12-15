@@ -1,0 +1,53 @@
+.roda-pe {
+    margin: 0px auto 0px auto;
+    padding: 0px 0 0 0;
+    text-align: center;
+    position: static;
+    width: 100%;
+}
+
+#produtos  {
+    /* height: 80%; */
+}
+
+.produto {
+    background-color: darkgrey;
+    margin-bottom: 10px;
+    /* height: 80%; */
+    border-radius: 10px;
+    transition: 0.5s all;
+}
+
+.produto:hover {
+    border-color: #c78c19;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    transform: scale(1.1);
+}
+
+.d-block {
+    margin-left: 10px;
+}
+
+
+#footer	{
+            
+    margin: 0px auto 0px auto;
+    padding: 0px 0 0 0;
+    text-align: center;
+    position: static;
+    width: 100%;
+    
+    }
+.fixed { position: fixed; }
+.static { position: static; }
+#footer-left	{
+    color: #FFFFFF;	 
+    font-size: 11px;
+    line-height: 11px;
+    padding: 10px 0 10px 0px;
+    border-top: 5px solid #A5151E;
+    border-bottom: 1px solid #dbdbdb;
+    background: #2A2A2A;    
+    height: 12px;
+    
+    } 

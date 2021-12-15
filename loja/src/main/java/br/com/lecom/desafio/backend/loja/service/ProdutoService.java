@@ -26,5 +26,9 @@ public class ProdutoService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+
+	public List<ProdutoDTO> buscarProdutoPorNome(String nome) {
+		return catalogoClient.getProdutoPorNome(nome);
+	}
 	
 }

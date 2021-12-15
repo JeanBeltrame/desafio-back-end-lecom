@@ -35,4 +35,9 @@ public class ProdutoController {
 	public List<ProdutoDTO> getVariosProdutosPorId(@RequestBody List<Long> ids) {
 		return produtoService.getVariosProdutosPorId(ids);
 	}
+	
+	@RequestMapping(value = "/consultar/nome/{nome}", method = RequestMethod.GET)
+	public List<ProdutoDTO> buscarProdutoPorNome(@PathVariable String nome) {
+		return produtoService.buscarProdutoPorNome(nome); //ResponseEntity.notFound().build()
+	}
 }

@@ -1,16 +1,19 @@
 package br.com.lecom.desafio.backend.loja.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
-
-import br.com.lecom.desafio.backend.loja.model.Venda;
 
 public class VendaDTO {
 
 	private Long vendaId;
 
+//	@JsonIgnore
 	private String CepDestinatario;
 	
+//	@JsonIgnore
 	private List<VendaItemDTO> itens;
+	
+	private BigDecimal precoTotal;
 
 	public VendaDTO() {
 
@@ -21,16 +24,12 @@ public class VendaDTO {
 		this.CepDestinatario = cepDestinatario;
 	}
 
-	public VendaDTO(Venda venda) {
-		this.vendaId = venda.getId();
-		this.CepDestinatario = venda.getDestino();
-	}
 
-	public Long getvendaId() {
+	public Long getVendaId() {
 		return vendaId;
 	}
 
-	public void setvendaId(Long id) {
+	public void setVendaId(Long id) {
 		this.vendaId = id;
 	}
 
@@ -48,6 +47,14 @@ public class VendaDTO {
 
 	public void setItens(List<VendaItemDTO> itens) {
 		this.itens = itens;
+	}
+
+	public BigDecimal getPrecoTotal() {
+		return precoTotal;
+	}
+
+	public void setPrecoTotal(BigDecimal precoTotal) {
+		this.precoTotal = precoTotal;
 	}
 
 }

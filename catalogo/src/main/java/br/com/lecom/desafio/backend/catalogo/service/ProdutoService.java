@@ -57,5 +57,17 @@ public class ProdutoService {
 		
 		return produtoDTO;
 	}
+
+	public List<ProdutoDTO> buscarProdutoPorNome(String nome) {
+		
+		List<Produto> produtos = produtoRepository.findByNomeContains(nome);
+		
+		List<ProdutoDTO> produtosDTO = produtos
+				.stream()
+				.map(produto -> toProdutoDTO(produto))
+				.collect(Collectors.toList());
+		
+		return produtosDTO;
+	}
 	
 }

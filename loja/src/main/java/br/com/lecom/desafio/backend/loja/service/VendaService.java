@@ -1,5 +1,6 @@
 package br.com.lecom.desafio.backend.loja.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.lecom.desafio.backend.loja.client.CatalogoClient;
 import br.com.lecom.desafio.backend.loja.client.TransportadoraClient;
+import br.com.lecom.desafio.backend.loja.dto.EntregaDTO;
 import br.com.lecom.desafio.backend.loja.dto.ProdutoDTO;
 import br.com.lecom.desafio.backend.loja.dto.VendaDTO;
 import br.com.lecom.desafio.backend.loja.dto.VendaItemDTO;
@@ -28,6 +30,9 @@ public class VendaService {
 	@Autowired
 	private CatalogoClient catalogoClient;
 	
+	@Autowired
+	private ProdutoService produtoService;
+	
 	public List<VendaDTO> todasVendas() {
 		List<Venda> vendas = vendaRepository.findAll();
 		
@@ -39,21 +44,42 @@ public class VendaService {
 		return vendaDTO;
 	}
 
-	public Venda realizaCompra(Venda venda) {
-		if(venda == null) {
+	public EntregaDTO realizaCompra(VendaDTO vendaDTO) {
+		if(vendaDTO == null) {
 			return null;
 		}
 		
-		VendaDTO vendaDTO = new VendaDTO(venda);
+		vendaDTO.setPrecoTotal(calculaPrecoTotal(vendaDTO.getItens()));
 		
-		transportadoraClient.realizaCompra(vendaDTO);
+		Venda venda = toVenda(vendaDTO);
 		
-		venda.setStatus(null);
-		vendaRepository.save(venda);
+		vendaDTO.setVendaId(vendaRepository.save(venda).getId());
 		
-		return venda;
+		return transportadoraClient.realizaCompra(vendaDTO);
 	}
 	
+	private BigDecimal calculaPrecoTotal(List<VendaItemDTO> itens) {
+//		BigDecimal precoTotal = itens.stream().reduce(() -> {})
+		BigDecimal precoAux = new BigDecimal(0);
+		List<BigDecimal> listaDePrecos =  itens
+			.stream()
+			.map(item -> {
+				BigDecimal precoTotal = new BigDecimal(0);
+				BigDecimal quantidade = new BigDecimal( item.getQuantidade() );
+				BigDecimal precoProduto = produtoService.buscarProdutoPorId(item.getProduto().getId()).getBody().getPrecoUnitario();
+				BigDecimal precoItem = quantidade.multiply(precoProduto);
+				
+				precoTotal = precoTotal.add(precoItem);
+				return precoTotal;
+			}).collect(Collectors.toList());
+		
+		precoAux = listaDePrecos.
+				stream()
+				.reduce(precoAux, (subtotal, element) -> subtotal.add(element));
+		
+		return precoAux;
+	}
+
 	private VendaDTO toVendaDTO(Venda venda) {
 		List<VendaItem> itens =  venda.getItens();
 		List<VendaItemDTO> itensDTO = itens
@@ -62,45 +88,55 @@ public class VendaService {
 				.collect(Collectors.toList());
 		
 		VendaDTO vendaDTO = new VendaDTO();
-		vendaDTO.setvendaId(venda.getId());
+		vendaDTO.setVendaId(venda.getId());
+		vendaDTO.setCepDestinatario(venda.getCepDestinatario());
 		vendaDTO.setItens(itensDTO);
-		vendaDTO.setCepDestinatario(venda.getDestino());
+		vendaDTO.setPrecoTotal(venda.getPrecoTotal());
 		
-
-		
-//		List<Long> idsProdutos = itens
-//				.stream()
-//				.map(item -> {
-//					itensDTO.add(toItemDTO(item));
-//					return item.getId();
-//				})
-//				.collect(Collectors.toList());
-//		
-//		List<ProdutoDTO> produtos = catalogoClient.getVariosProdutosPorId(idsProdutos);
-		
-//		List<VendaItemDTO> itensDTO = produtos
-//				.stream()
-//				.map(produtoDTO -> {
-//				
-//				});
-//		
-//		
-//		itensDTO.stream()
-//			.map(itemDTO -> itemDTO.setProduto())
-//		
 		return vendaDTO;
 	}
 
 	private VendaItemDTO toItemDTO(VendaItem vendaItem) {
 		VendaItemDTO vendaItemDTO = new VendaItemDTO();
 		
+		vendaItemDTO.setId(vendaItem.getId());
 		vendaItemDTO.setQuantidade(vendaItem.getQuantidade());
+		vendaItemDTO.setVendaId(vendaItem.getVendaId());
 
 		ResponseEntity<ProdutoDTO> produtoPorId = catalogoClient.getProdutoPorId( vendaItem.getProdutoId() );
 		
 		vendaItemDTO.setProduto(produtoPorId.getBody());
 		
 		return vendaItemDTO;
+	}
+	
+	private VendaItem toItem(VendaItemDTO vendaItemDTO) {
+		
+		VendaItem vendaItem = new VendaItem(
+				vendaItemDTO.getId(),
+				vendaItemDTO.getVendaId(),
+				vendaItemDTO.getProduto().getId(),
+				vendaItemDTO.getQuantidade()
+			);
+		
+		return vendaItem;
+	}
+	
+	private Venda toVenda(VendaDTO vendaDTO) {
+		
+		List<VendaItem> vendaItens = vendaDTO.getItens()
+				.stream()
+				.map(itemDTO -> toItem(itemDTO))
+				.collect(Collectors.toList());
+		
+		Venda venda = new Venda(
+					vendaDTO.getVendaId(),
+					vendaItens,
+					vendaDTO.getCepDestinatario(),
+					vendaDTO.getPrecoTotal()
+				);
+		
+		return venda;
 	}
 	
 }
