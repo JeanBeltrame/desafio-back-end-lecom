@@ -30,12 +30,12 @@ public class ProdutoController {
 	@CrossOrigin
 	@RequestMapping(value = "/consultar/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ProdutoDTO> buscarProdutoPorId(@PathVariable Long id) {
-		return produtoService.buscarProdutoPorId(id); //ResponseEntity.notFound().build()
+		return produtoService.buscarProdutoPorId(id);
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/consultar/nome/{nome}", method = RequestMethod.GET)
 	public List<ProdutoDTO> buscarProdutoPorNome(@PathVariable String nome) {
-		return produtoService.buscarProdutoPorNome(nome); //ResponseEntity.notFound().build()
+		return produtoService.buscarProdutoPorNome(nome);
 	}
 }

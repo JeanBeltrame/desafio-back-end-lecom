@@ -1,6 +1,9 @@
+buscaHidden();
+
 function montaObjetoProduto() {
     var produtos = [
         {
+            id: "",
             nome: "",
             descricao: "",
             categoria: "",
@@ -73,7 +76,7 @@ function exibirProduto(produto) {
 
     lista.appendChild(div);
 
-    buscaHidden();
+    
 
 }
 
@@ -83,7 +86,7 @@ function buscarPorId(event) {
         event.preventDefault();
         
         let idProduto = document.querySelector("#id-produto").value;
-        if (idProduto == null || idProduto == "") {
+        if (idProduto == null || idProduto == "" || idProduto == 0) {
             getProdutos();
             return;
         }
@@ -138,13 +141,18 @@ function buscarPorNome(event) {
 function buscaHidden() {
     let buscaId = document.getElementById("busca-por-id");
     let buscaNome = document.getElementById("busca-por-nome");
+
     buscaId.hidden = true;
     buscaNome.hidden = true;
-   
+
+    
+    let btnLimparBusca = document.getElementById("limpar-pesquisa");
     let btnBuscaId = document.getElementById("pesquisar-id");
     let btnBuscaNome = document.getElementById("pesquisar-nome");
+
     btnBuscaId.hidden = true;
     btnBuscaNome.hidden = true;
+    btnLimparBusca.hidden = true;
 
 }
 
@@ -156,8 +164,10 @@ function mudaOpcaoDeBuscaParaId() {
 
     let btnBuscaId = document.getElementById("pesquisar-id");
     let btnBuscaNome = document.getElementById("pesquisar-nome");
+    let btnLimparBusca = document.getElementById("limpar-pesquisa");
     btnBuscaId.hidden = false;
     btnBuscaNome.hidden = true;
+    btnLimparBusca.hidden = false;
 
 }
 
@@ -169,8 +179,10 @@ function mudaOpcaoDeBuscaParaNome() {
 
     let btnBuscaId = document.getElementById("pesquisar-id");
     let btnBuscaNome = document.getElementById("pesquisar-nome");
+    let btnLimparBusca = document.getElementById("limpar-pesquisa");
     btnBuscaId.hidden = true;
     btnBuscaNome.hidden = false;
+    btnLimparBusca.hidden = false;
 
 }
 

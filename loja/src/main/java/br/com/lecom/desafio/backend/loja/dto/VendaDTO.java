@@ -7,10 +7,8 @@ public class VendaDTO {
 
 	private Long vendaId;
 
-//	@JsonIgnore
-	private String CepDestinatario;
+	private String cepDestinatario;
 	
-//	@JsonIgnore
 	private List<VendaItemDTO> itens;
 	
 	private BigDecimal precoTotal;
@@ -21,7 +19,7 @@ public class VendaDTO {
 
 	public VendaDTO(Long vendaId, String cepDestinatario) {
 		this.vendaId = vendaId;
-		this.CepDestinatario = cepDestinatario;
+		this.cepDestinatario = cepDestinatario;
 	}
 
 
@@ -34,11 +32,11 @@ public class VendaDTO {
 	}
 
 	public String getCepDestinatario() {
-		return CepDestinatario;
+		return cepDestinatario;
 	}
 
-	public void setCepDestinatario(String CepDestinatario) {
-		this.CepDestinatario = CepDestinatario;
+	public void setCepDestinatario(String cepDestinatario) {
+		this.cepDestinatario = cepDestinatario;
 	}
 
 	public List<VendaItemDTO> getItens() {

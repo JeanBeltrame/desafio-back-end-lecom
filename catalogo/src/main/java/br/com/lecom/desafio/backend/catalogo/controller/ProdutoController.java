@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lecom.desafio.backend.catalogo.dto.ProdutoDTO;
-import br.com.lecom.desafio.backend.catalogo.model.Produto;
 import br.com.lecom.desafio.backend.catalogo.service.ProdutoService;
 
 @RestController
@@ -22,12 +21,12 @@ public class ProdutoController {
 	private ProdutoService produtoService;
 	
 	@RequestMapping(value = "/consultar", method = RequestMethod.GET)
-	public List<Produto> todosProdutos() {
+	public List<ProdutoDTO> todosProdutos() {
 		return produtoService.getTodosProdutos();
 	}
 	
 	@RequestMapping(value = "/consultar/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Produto> buscarProdutoPorId(@PathVariable Long id){
+	public ResponseEntity<ProdutoDTO> buscarProdutoPorId(@PathVariable Long id){
 		return produtoService.getProdutoPorId(id);
 	}
 	

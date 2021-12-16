@@ -1,5 +1,8 @@
 package br.com.lecom.desafio.backend.transportadora.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +48,13 @@ public class EntrgaService {
 		entrega.setCepDestinatario(entregaDTO.getCepDestinatario());
 
 		return entrega;
+	}
+
+	public List<EntregaDTO> todasEntregas() {
+		return entregaRepository.findAllByOrderByIdDesc()
+				.stream()
+				.map(entrega -> toEntregaDTO(entrega))
+				.collect(Collectors.toList());
 	}
 
 }

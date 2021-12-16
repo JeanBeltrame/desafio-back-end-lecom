@@ -2,9 +2,10 @@ package br.com.lecom.desafio.backend.loja.dto;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Table;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@Table(name = "produto")
+//@Table(name = "produto")
+@JsonSerialize
 public class ProdutoDTO {
 
 	private Long id;

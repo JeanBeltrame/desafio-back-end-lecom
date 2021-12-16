@@ -5,7 +5,7 @@ public class EntregaDTO {
 	private Long id;
 	private Long vendaId;
 	
-	private String CepRemetente;
+	private String cepRemetente;
 	private String cepDestinatario;
 	
 	private String status;
@@ -17,7 +17,7 @@ public class EntregaDTO {
 	public EntregaDTO(Long id, Long vendaId, String cepRemetente, String cepDestinatario, String status) {
 		this.id = id;
 		this.vendaId = vendaId;
-		this.CepRemetente = cepRemetente;
+		this.cepRemetente = cepRemetente;
 		this.cepDestinatario = cepDestinatario;
 		this.status = status;
 	}
@@ -55,11 +55,11 @@ public class EntregaDTO {
 	}
 
 	public String getCepRemetente() {
-		return CepRemetente;
+		return cepRemetente;
 	}
 
 	public void setCepRemetente(String cepRemetente) {
-		CepRemetente = cepRemetente;
+		this.cepRemetente = cepRemetente;
 	}
 	
 	

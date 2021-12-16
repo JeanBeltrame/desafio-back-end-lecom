@@ -8,6 +8,6 @@ import br.com.lecom.desafio.backend.loja.model.Venda;
 
 public interface VendaRepository extends CrudRepository<Venda, Long>{
 
-	List<Venda> findAll();
+	List<Venda> findAllByOrderByIdDesc();
 	
 }

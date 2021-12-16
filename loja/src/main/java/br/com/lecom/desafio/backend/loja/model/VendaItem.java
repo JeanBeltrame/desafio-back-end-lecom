@@ -19,6 +19,7 @@ public class VendaItem {
 	private Integer quantidade;
 	
 	public VendaItem() {
+		
 
 	}
 

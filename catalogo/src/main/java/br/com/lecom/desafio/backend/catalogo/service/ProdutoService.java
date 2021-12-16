@@ -18,14 +18,19 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	public List<Produto> getTodosProdutos() {
-		return produtoRepository.findAll();
+	public List<ProdutoDTO> getTodosProdutos() {
+		return produtoRepository.findAll()
+				.stream()
+				.map(produto -> toProdutoDTO(produto))
+				.collect(Collectors.toList());
 	}
 
-	public ResponseEntity<Produto> getProdutoPorId(Long id) {
+	public ResponseEntity<ProdutoDTO> getProdutoPorId(Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);
 		if(produto.isPresent()) {
-			return ResponseEntity.ok(produto.get());
+			
+			
+			return ResponseEntity.ok(toProdutoDTO(produto.get()));
 		}
 		
 		return ResponseEntity.notFound().build();
